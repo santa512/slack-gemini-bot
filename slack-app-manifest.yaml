@@ -25,12 +25,14 @@ oauth_config:
       - files:read
       - files:write
       - channels:history
+      - groups:history
 settings:
   event_subscriptions:
     bot_events:
       - app_mention
       - message.im
       - message.channels
+      - message.groups
   socket_mode_enabled: true
   org_deploy_enabled: false
   token_rotation_enabled: false
