@@ -1,0 +1,36 @@
+_metadata:
+  major_version: 1
+display_information:
+  name: Gemini Helper
+  description: Ask Gemini by slash command, DM, or channel mention.
+features:
+  bot_user:
+    display_name: Gemini Helper
+    always_online: false
+  slash_commands:
+    - command: /gemini
+      description: Ask Gemini a question in this channel
+      usage_hint: <your question>
+      should_escape: false
+    - command: /gemini-forget
+      description: Clear your saved slash-command conversation history for this channel
+      should_escape: false
+oauth_config:
+  scopes:
+    bot:
+      - commands
+      - app_mentions:read
+      - chat:write
+      - im:history
+      - files:read
+      - files:write
+      - channels:history
+settings:
+  event_subscriptions:
+    bot_events:
+      - app_mention
+      - message.im
+      - message.channels
+  socket_mode_enabled: true
+  org_deploy_enabled: false
+  token_rotation_enabled: false

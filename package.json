@@ -1,0 +1,16 @@
+{
+  "name": "slack-gemini-bot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A Slack Socket Mode bot that replies to app mentions with Gemini.",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.0.0",
+    "@slack/bolt": "^4.0.0",
+    "dotenv": "^16.4.7",
+    "mammoth": "^1.9.1"
+  }
+}
