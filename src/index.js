@@ -367,7 +367,7 @@ slack.command('/gemini', async ({ command, ack, respond, logger }) => {
     channelId: command.channel_id,
     conversationKey,
     // Slash-command replies are posted in the channel, matching channel mentions.
-    say: ({ text }) => respond({ text, response_type: 'in_channel' }),
+    say: ({ text }) => respond({ text: `*You asked:* ${command.text}\n\n${text}`, response_type: 'in_channel' }),
     logger,
   });
 });
