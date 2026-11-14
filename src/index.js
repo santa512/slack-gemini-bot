@@ -334,7 +334,7 @@ slack.event('message', async ({ event, say, logger }) => {
   }
 
   // In channels, continue only threads where the bot was previously mentioned.
-  if (event.channel_type !== 'channel' || !event.thread_ts || mentionsBot) return;
+  if (!['channel', 'group'].includes(event.channel_type) || !event.thread_ts || mentionsBot) return;
   const conversationKey = `channel:${event.channel}:${event.thread_ts}`;
   const history = await getConversationHistory(conversationKey);
   if (history.messages.length === 0 && !history.summary) return;
