@@ -362,14 +362,26 @@ slack.command('/gemini', async ({ command, ack, respond, logger }) => {
   }
 
   const conversationKey = `slash:${command.team_id}:${command.channel_id}:${command.user_id}`;
+  await respond({ text: 'Gemini is thinking…', response_type: 'in_channel' });
+  let responseUpdated = false;
+  const replaceThinkingMessage = (text) => {
+    responseUpdated = true;
+    return respond({ text, response_type: 'in_channel', replace_original: true });
+  };
+
   await answerWithGemini({
     text: command.text,
     channelId: command.channel_id,
     conversationKey,
     // Slash-command replies are posted in the channel, matching channel mentions.
-    say: ({ text }) => respond({ text: `*You asked:* ${command.text}\n\n${text}`, response_type: 'in_channel' }),
+    say: ({ text }) => replaceThinkingMessage(`*You asked:* ${command.text}\n\n${text}`),
     logger,
   });
+
+  // Image generation posts the image itself and does not call `say`.
+  if (!responseUpdated) {
+    await replaceThinkingMessage(`*You asked:* ${command.text}\n\nThe image is ready; see the upload above.`);
+  }
 });
 
 slack.command('/gemini-forget', async ({ command, ack, respond, logger }) => {
